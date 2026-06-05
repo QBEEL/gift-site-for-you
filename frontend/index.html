@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Наша история — открой каждую главу своим ключом" />
+  <title>💕 Для тебя 💕</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ============ INTRO SPLASH ============ -->
+  <div class="intro-splash" id="introSplash">
+    <div class="intro-heart">♥</div>
+  </div>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+
+    <!-- Плавающие частицы -->
+    <div class="particles" id="particles"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">Наша история</p>
+      <h1 class="hero-title">
+        Для
+        <span>тебя</span>
+      </h1>
+      <p class="hero-subtitle">Каждый ключ открывает часть нашей истории</p>
+
+      <!-- Счётчик дней вместе -->
+      <div class="hero-counter" id="heroCounter">
+        <div class="counter-item">
+          <span class="counter-num" id="counterDays">—</span>
+          <span class="counter-label">дней</span>
+        </div>
+        <div class="counter-sep">:</div>
+        <div class="counter-item">
+          <span class="counter-num" id="counterHours">—</span>
+          <span class="counter-label">часов</span>
+        </div>
+        <div class="counter-sep">:</div>
+        <div class="counter-item">
+          <span class="counter-num" id="counterMinutes">—</span>
+          <span class="counter-label">минут</span>
+        </div>
+      </div>
+      <p class="counter-caption">вместе</p>
+
+      <div class="hero-monologue">
+        <span class="hero-monologue-line"></span>
+        <p class="hero-monologue-text">монолог тревожника об отношениях</p>
+        <span class="hero-monologue-line"></span>
+      </div>
+
+      <div class="hero-divider"></div>
+    </div>
+  </section>
+
+  <!-- ============ CHAPTERS ============ -->
+  <section class="chapters-section" id="chaptersSection">
+    <div class="section-header">
+      <p class="section-label">Главы</p>
+      <h2 class="section-title">Наши воспоминания</h2>
+      <!-- Прогресс разблокировки -->
+      <div class="unlock-progress" id="unlockProgress">
+        <div class="unlock-progress-bar" id="unlockProgressBar"></div>
+      </div>
+      <p class="unlock-label" id="unlockLabel">0 / 5 открыто</p>
+    </div>
+    <div class="chapters-grid" id="chaptersGrid">
+      <!-- Карточки рендерятся через JS -->
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="footer-typewriter">
+      <span class="footer-phrase" id="footerPhrase"></span><span class="footer-cursor">|</span>
+    </div>
+    <div class="footer-meta">
+      <span class="footer-dot"></span>
+      <span>2025 - 2026 — навсегда</span>
+      <span class="footer-dot"></span>
+    </div>
+  </footer>
+
+  <!-- ============ MODAL: ввод ключа ============ -->
+  <div class="modal-overlay" id="keyModal" role="dialog" aria-modal="true" aria-label="Введи ключ">
+    <div class="modal-key">
+      <button class="btn-close" id="closeKeyModal" aria-label="Закрыть">✕</button>
+      <p class="modal-key-eyebrow">Доступ закрыт</p>
+      <h2>Введи ключ</h2>
+      <input type="text" id="keyInput" placeholder="твой ключ..." autocomplete="off" spellcheck="false"
+        aria-label="Поле ввода ключа" />
+      <button class="btn-unlock" id="submitKey">
+        <span>Открыть ✦</span>
+      </button>
+      <p class="modal-error" id="keyError" role="alert"></p>
+    </div>
+  </div>
+
+  <!-- ============ MODAL: содержимое главы ============ -->
+  <div class="modal-overlay" id="chapterModal" role="dialog" aria-modal="true" aria-label="Глава">
+    <div class="modal-chapter">
+      <button class="btn-close" id="closeChapterModal" aria-label="Закрыть">✕</button>
+      <img class="modal-chapter-img hidden" id="chapterImg" src="" alt="Фото главы" />
+      <div class="modal-chapter-body">
+        <p class="modal-chapter-label" id="chapterLabel"></p>
+        <h2 id="chapterTitle"></h2>
+        <p class="modal-chapter-subtitle" id="chapterSubtitle"></p>
+
+        <!-- ── Кастомный аудиоплеер ── -->
+        <div class="audio-player hidden" id="audioPlayer">
+          <audio id="audioEl" preload="metadata"></audio>
+
+          <div class="audio-waveform" id="audioWaveform">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+
+          <div class="audio-controls">
+            <button class="audio-btn-play" id="audioPlayBtn" aria-label="Воспроизвести">
+              <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+              <svg class="icon-pause hidden" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+              </svg>
+            </button>
+
+            <div class="audio-timeline">
+              <span class="audio-time" id="audioCurrentTime">0:00</span>
+              <div class="audio-progress-track" id="audioTrack">
+                <div class="audio-progress-fill" id="audioFill"></div>
+                <div class="audio-progress-thumb" id="audioThumb"></div>
+              </div>
+              <span class="audio-time" id="audioDuration">0:00</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="modal-chapter-text" id="chapterText"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MODAL: все главы открыты ============ -->
+  <div class="modal-overlay all-unlocked-overlay" id="allUnlockedModal">
+    <div class="all-unlocked-modal">
+      <div class="all-unlocked-hearts" id="allUnlockedHearts"></div>
+      <p class="all-unlocked-eyebrow">Ты открыла всё</p>
+      <h2 class="all-unlocked-title">Наша история<br />теперь твоя</h2>
+      <p class="all-unlocked-text" id="allUnlockedText">
+        Спасибо, что читала. Спасибо, что слушала.<br />
+        Каждая глава — это часть меня, которую я отдал тебе.
+      </p>
+      <button class="all-unlocked-btn" id="closeAllUnlocked">
+        Закрыть ✦
+      </button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

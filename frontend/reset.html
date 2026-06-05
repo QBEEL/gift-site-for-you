@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>💕 Сброс данных</title>
+  <style>
+    body {
+      background: #0a0a0a;
+      color: #ede8e3;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+      gap: 1.5rem;
+      text-align: center;
+    }
+    p { color: #5e5955; font-size: 0.85rem; letter-spacing: 0.1em; }
+    button {
+      background: transparent;
+      border: 1px solid #c9a98a;
+      color: #c9a98a;
+      padding: 0.8rem 2rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+    button:hover { background: #c9a98a; color: #0a0a0a; }
+    .done { color: #8ab87a; display: none; }
+  </style>
+</head>
+<body>
+  <p>Страница администратора</p>
+  <button onclick="reset()">Сбросить все разблокировки</button>
+  <p class="done" id="done">✓ Готово — все главы снова заблокированы</p>
+  <a href="/" style="color:#5e5955;font-size:0.75rem;letter-spacing:0.2em;text-decoration:none;margin-top:1rem">← Вернуться</a>
+
+  <script>
+    function reset() {
+      localStorage.removeItem('gift_unlocked');
+      document.getElementById('done').style.display = 'block';
+      setTimeout(() => window.location.href = '/', 1500);
+    }
+  </script>
+</body>
+</html>
